@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividir Gastos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dividir Gastos</h1>
+        
+        <div class="input-section">
+            <h2>Agregar Participante</h2>
+            <div class="form-group">
+                <input type="text" id="nombreInput" placeholder="Nombre del participante">
+                <input type="number" id="montoInput" placeholder="Monto pagado" step="0.01" min="0">
+                <button id="agregarBtn">Agregar</button>
+            </div>
+        </div>
+
+        <div class="participantes-section">
+            <h2>Participantes</h2>
+            <div id="participantesList"></div>
+        </div>
+
+        <div class="actions">
+            <button id="calcularBtn" class="btn-calcular">Calcular División</button>
+            <button id="limpiarBtn" class="btn-limpiar">Limpiar Todo</button>
+        </div>
+
+        <div id="resultados" class="resultados-section" style="display: none;">
+            <h2>Resultados</h2>
+            <div class="resumen">
+                <p><strong>Total gastado:</strong> $<span id="totalGastado">0</span></p>
+                <p><strong>Por persona:</strong> $<span id="porPersona">0</span></p>
+            </div>
+            <div id="transferencias"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
