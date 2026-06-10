@@ -27,11 +27,25 @@ montoInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') agregarParticipante();
 });
 
-// Función para agregar participante
+
+function parseMonto(valor) {
+    // Solo permite dígitos, punto, coma y operadores básicos + - * /
+    const sanitized = valor.replace(',', '.').replace(/[^0-9+\-*/.()\s]/g, '');
+    
+    if (!sanitized) return NaN;
+    
+    try {
+        const resultado = Function('"use strict"; return (' + sanitized + ')')();
+        return typeof resultado === 'number' && isFinite(resultado) ? resultado : NaN;
+    } catch {
+        return NaN;
+    }
+}
+
+
 function agregarParticipante() {
     const nombre = nombreInput.value.trim();
-    const monto = parseFloat(montoInput.value);
-
+    const monto = parseMonto(montoInput.value);
     // Validaciones
     if (!nombre) {
         alert('Por favor ingresa un nombre');
@@ -46,12 +60,15 @@ function agregarParticipante() {
     // Verificar si el participante ya existe
     const existe = participantes.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
     if (existe) {
-        alert('Este participante ya existe');
-        return;
+        
+        existe.monto += monto;
+        console.log("Existe participante: ",existe.monto,"+",monto)
     }
-
-    // Agregar participante
-    participantes.push({ nombre, monto });
+    else {
+        // Agregar participante
+        participantes.push({ nombre, monto });
+        console.log("No existe participante: ",nombre,"+",monto)
+    }
 
     // Limpiar inputs
     nombreInput.value = '';
